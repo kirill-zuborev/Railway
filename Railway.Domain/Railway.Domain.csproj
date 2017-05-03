@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Railway.DataAccess\Railway.DataAccess.csproj" />
+    <ProjectReference Include="..\Railway.Data\Railway.Data.csproj" />
+  </ItemGroup>
+
+</Project>

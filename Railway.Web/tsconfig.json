@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "es2015",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"removeComments": true,
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"jsx": "react",
+		"types": [
+			"node"
+		]
+	},
+	"include": [
+		"client/**/*"
+	],
+	"awesomeTypescriptLoaderOptions": {
+		"useWebpackText": true
+	},
+	"compileOnSave": false,
+	"buildOnSave": false
+}

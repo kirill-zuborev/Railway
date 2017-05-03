@@ -1,0 +1,3 @@
+[submodule "BO/Edu.BO.Web/src/ui-lib"]
+	path = BO/Edu.BO.Web/src/ui-lib
+	url = git@git.epam.com:epm-tmc/ui.git
