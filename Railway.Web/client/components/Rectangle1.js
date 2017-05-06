@@ -1,4 +1,4 @@
-import { Scene, Camera, RequestAnimationFrame, Sampler2D, PrimitivePlanePrefab, View, HoverController, PrimitiveSpherePrefab, ElementsType, DefaultMaterialManager, MethodMaterial, DirectionalLight, Vector3D, StaticLightPicker } from 'awayjs-full';
+import { Scene, Camera, RequestAnimationFrame, PrimitiveCubePrefab, ColorUtils, Sampler2D, PrimitivePlanePrefab, View, HoverController, ElementsType, DefaultMaterialManager, MethodMaterial, DirectionalLight, Vector3D, StaticLightPicker } from 'awayjs-full';
 class rect {
     constructor() {
         this.move = false;
@@ -12,6 +12,7 @@ class rect {
         this.cameraController.maxTiltAngle = 90;
         this.cameraController.panAngle = 45;
         this.cameraController.tiltAngle = 20;
+        this.view.backgroundColor = ColorUtils.ARGBtoFloat32(100, 255, 255, 0);
         this.light1 = new DirectionalLight();
         this.light1.direction = new Vector3D(0, -1, 0);
         this.light1.ambient = 0.1;
@@ -24,20 +25,20 @@ class rect {
         light2.diffuse = 0.7;
         scene.addChild(light2);
         let lightPicker = new StaticLightPicker([this.light1, light2]);
-        let sphereMaterial = new MethodMaterial(10);
+        let sphereMaterial = new MethodMaterial(0);
         sphereMaterial.lightPicker = lightPicker;
         let planeMaterial = new MethodMaterial(DefaultMaterialManager.getDefaultImage2D());
         planeMaterial.lightPicker = lightPicker;
         planeMaterial.style.sampler = new Sampler2D(true, true, true);
         let plane = new PrimitivePlanePrefab(planeMaterial, ElementsType.TRIANGLE, 1000, 1000).getNewObject();
         plane.graphics.scaleUV(2, 2);
-        plane.y = -20;
-        scene.addChild(plane);
-        let sphere = new PrimitiveSpherePrefab(sphereMaterial, ElementsType.TRIANGLE, 150, 40, 20).getNewObject();
+        plane.y = 0;
+        let sphere = new PrimitiveCubePrefab(sphereMaterial, ElementsType.TRIANGLE, 150, 40, 20).getNewObject();
         sphere.x = 300;
         sphere.y = 160;
         sphere.z = 300;
         scene.addChild(sphere);
+        scene.addChild(plane);
         window.onresize = (event) => this.onResize();
         document.onmousedown = (event) => this.onMouseDown(event);
         document.onmouseup = (event) => this.onMouseUp(event);
@@ -76,10 +77,10 @@ class rect {
         this.view.render();
     }
     onResize() {
-        this.view.y = 0;
+        this.view.y = 100;
         this.view.x = 0;
         this.view.width = window.innerWidth;
-        this.view.height = window.innerHeight;
+        this.view.height = window.innerHeight - 200;
     }
 }
 export const Rectangle = () => {

@@ -8,6 +8,8 @@ namespace Railway.Data.Enteties
     {
 		public Container ContainerType { get; set; }
 
+		public Vector Position { get; set; }
+
 		public double Weight { get; set; }
 	}
 }

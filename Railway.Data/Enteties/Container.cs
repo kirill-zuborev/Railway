@@ -4,12 +4,8 @@ using System.Text;
 
 namespace Railway.Data.Enteties
 {
-    public class Container
+    public class Container : ContainerBase
     {
-		public double Height { get; set; }
-
-		public double Width { get; set; }
-
-		public double Length { get; set; }
+		
 	}
 }
