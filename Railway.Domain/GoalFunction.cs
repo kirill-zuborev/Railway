@@ -1,11 +1,11 @@
-﻿using Railway.Data.Enteties;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-namespace Railway.Domain
+﻿namespace Railway.Domain
 {
-    public class GoalFunction
+	using System;
+	using System.Linq;
+	using System.Collections.Generic;
+	using Railway.Data.Enteties;
+
+	public class GoalFunction
     {
 		private readonly IList<Tuple<double, Func<ContainerBase, IDictionary<LoadingContainer, int>, double>>> criteria;
 

@@ -1,4 +1,4 @@
-import { Scene, Camera, RequestAnimationFrame, PrimitiveCubePrefab, ColorUtils, Sampler2D, PrimitivePlanePrefab, View, HoverController, ElementsType, DefaultMaterialManager, MethodMaterial, DirectionalLight, Vector3D, StaticLightPicker } from 'awayjs-full';
+import { Scene, Camera, RequestAnimationFrame, PrimitiveCubePrefab, ColorUtils, View, HoverController, ElementsType, MethodMaterial, DirectionalLight, Vector3D, StaticLightPicker } from 'awayjs-full';
 class rect {
     constructor() {
         this.move = false;
@@ -6,13 +6,12 @@ class rect {
         this.view = new View();
         this.view.camera = camera;
         this.view.scene = scene;
-        this.cameraController = new HoverController(camera, null, 0, 0, 600, -90, 90);
-        this.cameraController.distance = 1000;
+        this.cameraController = new HoverController(camera, null, 0, 0, 1500, -90, 90);
         this.cameraController.minTiltAngle = 0;
         this.cameraController.maxTiltAngle = 90;
-        this.cameraController.panAngle = 45;
         this.cameraController.tiltAngle = 20;
-        this.view.backgroundColor = ColorUtils.ARGBtoFloat32(100, 255, 255, 0);
+        this.view.backgroundColor = ColorUtils.ARGBtoFloat32(0, 211, 211, 211);
+        console.log(ColorUtils.ARGBtoFloat32(0, 211, 211, 211));
         this.light1 = new DirectionalLight();
         this.light1.direction = new Vector3D(0, -1, 0);
         this.light1.ambient = 0.1;
@@ -25,20 +24,16 @@ class rect {
         light2.diffuse = 0.7;
         scene.addChild(light2);
         let lightPicker = new StaticLightPicker([this.light1, light2]);
-        let sphereMaterial = new MethodMaterial(0);
-        sphereMaterial.lightPicker = lightPicker;
-        let planeMaterial = new MethodMaterial(DefaultMaterialManager.getDefaultImage2D());
-        planeMaterial.lightPicker = lightPicker;
-        planeMaterial.style.sampler = new Sampler2D(true, true, true);
-        let plane = new PrimitivePlanePrefab(planeMaterial, ElementsType.TRIANGLE, 1000, 1000).getNewObject();
-        plane.graphics.scaleUV(2, 2);
-        plane.y = 0;
-        let sphere = new PrimitiveCubePrefab(sphereMaterial, ElementsType.TRIANGLE, 150, 40, 20).getNewObject();
-        sphere.x = 300;
-        sphere.y = 160;
-        sphere.z = 300;
-        scene.addChild(sphere);
-        scene.addChild(plane);
+        this.RenderContainer(1200, 600, 600, scene);
+        let sphereMaterial2 = new MethodMaterial(0xFF0000, 0.3);
+        sphereMaterial2.bothSides = true;
+        for (var i = 0; i < 1; i++) {
+            let sphere = new PrimitiveCubePrefab(sphereMaterial2, ElementsType.TRIANGLE, 1200, 600, 600).getNewObject();
+            sphere.x = 0;
+            sphere.y = 300;
+            sphere.z = 0;
+            scene.addChild(sphere);
+        }
         window.onresize = (event) => this.onResize();
         document.onmousedown = (event) => this.onMouseDown(event);
         document.onmouseup = (event) => this.onMouseUp(event);
@@ -47,6 +42,46 @@ class rect {
         this.onResize();
         let timer = new RequestAnimationFrame(this.onEnterFrame, this);
         timer.start();
+    }
+    RenderContainer(l, w, h, scene) {
+        const width = 20;
+        let containerMaterial = new MethodMaterial(0x00FF00, 0.9);
+        containerMaterial.bothSides = true;
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, h, 0, l / 2 - width / 2, h / 2, -w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, h, 0, -(l / 2 - width / 2), h / 2, -w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, h, 0, l / 2 - width / 2, h / 2, w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, h, 0, -(l / 2 - width / 2), h / 2, w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, h, width, -l / 2, h / 2, w / 2 - width / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, h, width, l / 2, h / 2, w / 2 - width / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, h, width, -l / 2, h / 2, -(w / 2 - width / 2)));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, h, width, l / 2, h / 2, -(w / 2 - width / 2)));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, 0, w, -(l / 2 - width / 2), h, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, 0, w, -(l / 2 - width / 2), 0, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, 0, w, l / 2 - width / 2, h, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, width, 0, w, l / 2 - width / 2, 0, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, h, -(w / 2 - width / 2)));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, 0, -(w / 2 - width / 2)));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, h, w / 2 - width / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, 0, w / 2 - width / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, h, -(w / 2 - width / 2)));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, 0, -(w / 2 - width / 2)));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, h, w / 2 - width / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, 0, width, 0, 0, w / 2 - width / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, width, w, l / 2, h - width / 2, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, width, w, l / 2, width / 2, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, width, w, -l / 2, h - width / 2, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, 0, width, w, -l / 2, width / 2, 0));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, width, 0, 0, h - width / 2, w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, width, 0, 0, width / 2, w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, width, 0, 0, h - width / 2, -w / 2));
+        scene.addChild(this.RenderContainerLine(containerMaterial, l, width, 0, 0, width / 2, -w / 2));
+    }
+    RenderContainerLine(material, width, height, depth, x, y, z) {
+        let line = new PrimitiveCubePrefab(material, ElementsType.TRIANGLE, width, height, depth).getNewObject();
+        line.x = x;
+        line.y = y;
+        line.z = z;
+        return line;
     }
     onMouseDown(event) {
         this.lastPanAngle = this.cameraController.panAngle;
@@ -77,10 +112,10 @@ class rect {
         this.view.render();
     }
     onResize() {
-        this.view.y = 100;
+        this.view.y = 0;
         this.view.x = 0;
-        this.view.width = window.innerWidth;
-        this.view.height = window.innerHeight - 200;
+        this.view.width = 0.75 * window.innerWidth;
+        this.view.height = window.innerHeight;
     }
 }
 export const Rectangle = () => {

@@ -1,25 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Railway.Data.Enteties
+﻿namespace Railway.Data.Enteties
 {
+	using System;
+
 	public struct Vector
 	{
-		public double X { get; set; }
-		public double Y { get; set; }
-		public double Z { get; set; }
+		private readonly double _x;
+		private readonly double _y;
+		private readonly double _z;
 
-		public Vector(double x, double y, double z)
+		public double X
 		{
-			X = x;
-			Y = y;
-			Z = z;
+			get
+			{
+				return _x;
+			}
 		}
 
-		public Vector Shift(double deltaX, double deltaY, double deltaZ)
+		public double Y
 		{
-			return new Vector(this.X + deltaX, this.Y + deltaY, this.Z + deltaZ);
+			get
+			{
+				return _y;
+			}
+		}
+
+		public double Z
+		{
+			get
+			{
+				return _z;
+			}
 		}
 
 		public double ToCenter
@@ -28,6 +38,18 @@ namespace Railway.Data.Enteties
 			{
 				return Math.Sqrt(Math.Pow(this.X, 2) + Math.Pow(this.Y, 2) + Math.Pow(this.Z, 2));
 			}
+		}
+
+		public Vector(double x, double y, double z)
+		{
+			_x = x;
+			_y = y;
+			_z = z;
+		}
+
+		public Vector Shift(double deltaX, double deltaY, double deltaZ)
+		{
+			return new Vector(this.X + deltaX, this.Y + deltaY, this.Z + deltaZ);
 		}
 	}
 }

@@ -1,10 +1,9 @@
 import * as React from "react";
-import { Rectangle } from '../components/Rectangle1';
+import './index.less';
 let rect = { height: 10, length: 20, width: 10 };
 export class Index extends React.Component {
     render() {
-        Rectangle();
-        return React.createElement("div", null);
+        return React.createElement("div", { className: 'page' });
     }
 }
 //# sourceMappingURL=Index.js.map

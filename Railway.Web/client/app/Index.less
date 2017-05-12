@@ -1,0 +1,27 @@
+﻿body {
+	padding: 0;
+}
+
+.page {
+	display: flex;
+
+	.container {
+		width: 75%;
+		height: 100%;
+		border-right: 1px solid black;
+		bottom: 0;
+		position: absolute;
+	}
+
+	.list {
+		margin-left: calc(~'75% + 1px');
+		width: calc(~'25% - 1px');
+
+		&__item {
+			margin: 1em;
+		}
+
+		&__items {
+		}
+	}
+}

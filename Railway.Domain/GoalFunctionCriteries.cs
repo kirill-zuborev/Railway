@@ -1,12 +1,10 @@
-﻿using Railway.Data.Enteties;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Railway.Domain
+﻿namespace Railway.Domain
 {
-    public static class GoalFunctionCriteries
+	using Railway.Data.Enteties;
+	using System.Linq;
+	using System.Collections.Generic;
+
+	public static class GoalFunctionCriteries
     {
 		public static double VolumeDifference<T>(T wagon, IDictionary<LoadingContainer, int> containers) where T : ContainerBase
 		{
